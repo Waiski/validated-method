@@ -1,3 +1,3 @@
 ## Installation
 
-`typings install github:meteor-typings/validated-method#38f677e380c2f0721654e610b62d2ecdc1e46de8 --global`
+`typings install github:meteor-typings/validated-method#5244da37df5e49812ca5afe6520642f875921665 --global`
