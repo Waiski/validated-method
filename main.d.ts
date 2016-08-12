@@ -2,13 +2,29 @@
 // Project: https://atmospherejs.com/mdg/validated-method
 // Definitions by:  Dave Allen <https://github.com/fullflavedave>
 
-declare module 'meteor/mdg:validated-method' {
-  export class ValidatedMethod {
+
+interface ValidatedMethod_Static {
+  new(options: {
     name: string;
-    mixins: any;
-    validate: (...args: any[]) => boolean; // returned from SimpleSchemaInstance.validator() method;
-    applyOptions: { [key: string]: any };
-    run(...args: any[]): void;
-  }
-  export function checkNpmVersions(npmPackages: { [npmPackageName: string]: string /** version **/}, fullAtmospherePackageName: string): void;
+    mixins: Function[];
+    validate: (args: { [key: string]: any; }) => boolean; // returned from SimpleSchemaInstance.validator() method;
+    applyOptions: {
+      noRetry: boolean;
+      returnStubValue: boolean;
+      throwStubExceptions: boolean;
+      onResultReceived: (result: any) => void;
+      [key: string]: any };
+    run: (args: { [key: string]: any; }) => void;
+  }): ValidatedMethod_Instance;
+}
+
+interface ValidatedMethod_Instance {
+  call(args: { [key: string]: any; }, cb?: (error: any, result: any) => void ): void;
+  _execute(context: { [key: string]: any; }, args: { [key: string]: any; }): void;
+}
+
+declare const ValidatedMethod: ValidatedMethod_Static;
+
+declare module 'meteor/mdg:validated-method' {
+  export const ValidatedMethod: ValidatedMethod_Static;
 }
