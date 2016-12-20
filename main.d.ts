@@ -7,7 +7,7 @@ interface ValidatedMethod_Static {
   new(options: {
     name: string;
     mixins?: Function[];
-    validate: (args: { [key: string]: any; }) => boolean; // returned from SimpleSchemaInstance.validator() method;
+    validate: (args: { [key: string]: any; }) => void; // returned from SimpleSchemaInstance.validator() method;
     applyOptions?: {
       noRetry: boolean;
       returnStubValue: boolean;
