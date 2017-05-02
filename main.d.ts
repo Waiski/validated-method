@@ -4,7 +4,7 @@
 
 
 interface ValidatedMethod_Static {
-  new(options: {
+  new<ArgType extends { [key: string]: any; }, ReturnType>(options: {
     name: string;
     mixins?: Function[];
     validate: (args: { [key: string]: any; }) => void; // returned from SimpleSchemaInstance.validator() method;
@@ -14,13 +14,13 @@ interface ValidatedMethod_Static {
       throwStubExceptions: boolean;
       onResultReceived: (result: any) => void;
       [key: string]: any };
-    run: (args: { [key: string]: any; }) => void;
-  }): ValidatedMethod_Instance;
+    run: (args: ArgType) => ReturnType;
+  }): ValidatedMethod_Instance<ArgType, ReturnType>;
 }
 
-interface ValidatedMethod_Instance {
-  call(args: { [key: string]: any; }, cb?: (error: any, result: any) => void ): void;
-  _execute(context: { [key: string]: any; }, args: { [key: string]: any; }): void;
+interface ValidatedMethod_Instance<ArgType, ReturnType> {
+  call(args: ArgType, cb?: (error: any, result: ReturnType) => void ): ReturnType;
+  _execute(context: { [key: string]: any; }, args: ArgType): ReturnType;
 }
 
 declare const ValidatedMethod: ValidatedMethod_Static;
